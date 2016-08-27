@@ -71,9 +71,9 @@ public class RenderHelper2D {
 		GL11.glPushMatrix();
 		//GL11.glTranslated(x, y, 0);
 		
-		GL11.glTranslated(x+sizeX/2, y+sizeY/2, 0);
-		GL11.glRotated(rotation, 0, 0, 1);
-		GL11.glTranslated(-x-sizeX/2, -y-sizeY/2, 0);
+		GL11.glTranslatef((float)(x+sizeX/2), (float)(y+sizeY/2), 0f);
+		GL11.glRotatef((float)rotation, 0f, 0f, 1f);
+		GL11.glTranslatef((float)(-x-sizeX/2), (float)(-y-sizeY/2), 0f);
         
         //GL11.glTranslated(x, y, 0);
         
@@ -90,11 +90,11 @@ public class RenderHelper2D {
         GL11.glEnable(GL11.GL_ALPHA_TEST);
         GL11.glEnable(GL11.GL_BLEND);
         
-        GL11.glColor4d(1, 1, 1, alpha);
+        GL11.glColor4f(1f, 1f, 1f, (float)alpha);
         
-        GL11.glTranslated(0, 0, zLevel);
+        GL11.glTranslatef(0f, 0f, (float)zLevel);
         renderer.renderIcon(x, y, icon, (int)sizeX, (int)sizeY);
-        GL11.glTranslated(0, 0, -zLevel);
+        GL11.glTranslatef(0f, 0f, (float)(-zLevel));
         
         GL11.glEnable(GL11.GL_LIGHTING);
         GL11.glDisable(GL11.GL_ALPHA_TEST);
@@ -120,11 +120,11 @@ public class RenderHelper2D {
         float f;
         float f3;
         float f4;
-        GL11.glTranslated(x+8, y+8, 0);
-        GL11.glScaled((double)sizeX/16D, (double)sizeY/16D, 1);
-        GL11.glRotated(rotation, 0, 0, 1);
-        GL11.glTranslated(-x-8, -y-8, 0);
-        GL11.glColor4d(1, 1, 1, alpha);
+        GL11.glTranslatef((float)(x+8), (float)(y+8), 0f);
+        GL11.glScalef((float)sizeX/16f, (float)sizeY/16f, 1f);
+        GL11.glRotatef((float)rotation, 0f, 0f, 1f);
+        GL11.glTranslatef((float)(-x-8), (float)(-y-8), 0f);
+        GL11.glColor4f(1f, 1f, 1f, (float)alpha);
         try{
 	        if (stack.getItemSpriteNumber() == 0 && RenderBlocks.renderItemIn3d(Block.getBlockFromItem(stack.getItem()).getRenderType()))
 	        {
@@ -287,7 +287,7 @@ public class RenderHelper2D {
     public static void drawRect(int x1, int y1, int x2, int y2, Vec3 color, double alpha)
     {
     	//GL11.glTranslated(mc.displayWidth/2, mc.displayHeight/2, 0);
-    	GL11.glTranslated(0, 0, 0);
+    	GL11.glTranslatef(0f, 0f, 0f);
     	GL11.glPushMatrix();
     	//GL11.glTranslated(mc.displayWidth/4, mc.displayHeight/4, 0);
     	/*x1 += mc.displayWidth/4;
@@ -314,7 +314,7 @@ public class RenderHelper2D {
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         OpenGlHelper.glBlendFunc(770, 771, 1, 0);
-        GL11.glColor4d(color.xCoord, color.yCoord, color.zCoord, alpha);
+        GL11.glColor4f((float)color.xCoord, (float)color.yCoord, (float)color.zCoord, (float)alpha);
         tessellator.startDrawingQuads();
         tessellator.addVertex((double)x1, (double)y2, 0.0D);
         tessellator.addVertex((double)x2, (double)y2, 0.0D);
@@ -420,7 +420,7 @@ public class RenderHelper2D {
             //RenderHelper.disableStandardItemLighting();
             GL11.glDisable(GL11.GL_LIGHTING);
             GL11.glEnable(GL11.GL_DEPTH_TEST);
-            GL11.glTranslated(0, 0, layer);
+            GL11.glTranslatef(0f, 0f, (float)layer);
             int k = 0;
             Iterator iterator = strings.iterator();
 
@@ -490,7 +490,7 @@ public class RenderHelper2D {
             GL11.glPopMatrix();
             GL11.glDisable(GL11.GL_DEPTH_TEST);
            // zLevel = 0;
-            GL11.glTranslated(0, 0, -layer);
+            GL11.glTranslatef(0f, 0f, (float)(-layer));
         }
     }
     

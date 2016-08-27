@@ -42,13 +42,13 @@ public class RenderHelper3D {
 	public static void renderBlock(double x, double y, double z, double width, double height, double length, double rotateX, double rotateY, double rotateZ, double red, double green, double blue, double alpha)
 	{
 		GL11.glPushMatrix();
-		GL11.glTranslated(x, y, z);
+		GL11.glTranslatef((float)x, (float)y, (float)z);
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		GL11.glRotated(rotateX, 1, 0, 0);
-		GL11.glRotated(rotateY, 0, 1, 0);
-		GL11.glRotated(rotateZ, 0, 0, 1);
-		GL11.glScaled(width, height, length);
-		GL11.glColor4d(red, green, blue, alpha);
+		GL11.glRotatef((float)rotateX, 1, 0f, 0f);
+		GL11.glRotatef((float)rotateY, 0f, 1f, 0f);
+		GL11.glRotatef((float)rotateZ, 0f, 0f, 1f);
+		GL11.glScalef((float)width, (float)height, (float)length);
+		GL11.glColor4f((float)red, (float)green, (float)blue, (float)alpha);
 		
 		GL11.glBegin(GL11.GL_POLYGON);
 		//GL11.glColor4d(red, green, blue, alpha);
@@ -116,12 +116,12 @@ public class RenderHelper3D {
 	public static void renderBlock(Block block, double x, double y, double z, double width, double height, double length, double rotateX, double rotateY, double rotateZ, ForgeDirection direction)
 	{
 		GL11.glPushMatrix();
-		GL11.glTranslated(x, y, z);
+		GL11.glTranslatef((float)x, (float)y, (float)z);
 		applyDirection(direction);
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		GL11.glRotated(rotateX, 1, 0, 0);
-		GL11.glRotated(rotateY, 0, 1, 0);
-		GL11.glRotated(rotateZ, 0, 0, 1);
+		GL11.glRotatef((float)rotateX, 1f, 0f, 0f);
+		GL11.glRotatef((float)rotateY, 0f, 1f, 0f);
+		GL11.glRotatef((float)rotateZ, 0f, 0f, 1f);
 		
 		
 		
@@ -140,7 +140,7 @@ public class RenderHelper3D {
 		int blocksX = (int) Math.ceil(sizeX/1);
 		int blocksY = (int) Math.ceil(sizeY/1);
 		int blocksZ = (int) Math.ceil(sizeZ/1);
-		GL11.glTranslated(-sizeX/2D+0.5, -sizeY/2D+0.5, -sizeZ/2D+0.5);
+		GL11.glTranslatef((float)(-sizeX/2D+0.5), (float)(-sizeY/2D+0.5), (float)(-sizeZ/2D+0.5));
 		
 		boolean shouldX = false;
 		boolean shouldY = false;
@@ -170,8 +170,8 @@ public class RenderHelper3D {
 					int moveZ = 1;
 					if(!shouldZ)
 						moveZ = 0;
-					GL11.glTranslated(moveX, moveY, moveZ);
-					GL11.glRotated(-90, 0, 1, 0);
+					GL11.glTranslatef((float)moveX, (float)moveY, (float)moveZ);
+					GL11.glRotatef(-90f, 0f, 1f, 0f);
 					RenderHelper3D.renderer.setRenderBounds(0, 0, 0, boundX, boundY, boundZ);
 					RenderHelper3D.renderer.lockBlockBounds = true;
 					RenderHelper3D.renderBlock(block, meta);
@@ -180,11 +180,11 @@ public class RenderHelper3D {
 					shouldY = false;
 					shouldZ = true;
 				}
-				GL11.glTranslated(0, 0, -(blocksZ-1));
+				GL11.glTranslatef(0f, 0f, (float)(-(blocksZ-1)));
 				shouldZ = false;
 				shouldY = true;
 			}
-			GL11.glTranslated(0, -(blocksY-1), 0);
+			GL11.glTranslatef(0f, (float)(-(blocksY-1)), 0f);
 			shouldY = false;
 			shouldX = true;
 		}
@@ -268,17 +268,17 @@ public class RenderHelper3D {
 			rotation = 180;
 			break;
 		case UP:
-			GL11.glRotated(90, 1, 0, 0);
-			GL11.glRotated(-90, 0, 0, 1);
+			GL11.glRotatef(90f, 1f, 0f, 0f);
+			GL11.glRotatef(-90f, 0f, 0f, 1f);
 			break;
 		case DOWN:
-			GL11.glRotated(-90, 1, 0, 0);
-			GL11.glRotated(-90, 0, 0, 1);
+			GL11.glRotatef(-90f, 1f, 0f, 0f);
+			GL11.glRotatef(-90f, 0f, 0f, 1f);
 			break;
 		default:
 			break;
 		}
-		GL11.glRotated(rotation, 0, 1, 0);
+		GL11.glRotatef((float)rotation, 0f, 1f, 0f);
 	}
 	
 	public static void renderItem(ItemStack stack, double x, double y, double z, double rotationX, double rotationY, double rotationZ, double size, ForgeDirection direction, double moveX, double moveY, double moveZ)
@@ -301,13 +301,13 @@ public class RenderHelper3D {
             
             //GL11.glTranslated(-moveX, -moveY, -moveZ);
             applyDirection(direction);
-            GL11.glTranslated(moveX, moveY, moveZ);
+            GL11.glTranslatef((float)moveX, (float)moveY, (float)moveZ);
             
-            GL11.glRotated(rotationX, 1, 0, 0);
-            GL11.glRotated(rotationY, 0, 1, 0);
-            GL11.glRotated(rotationZ, 0, 0, 1);
+            GL11.glRotatef((float)rotationX, 1f, 0f, 0f);
+            GL11.glRotatef((float)rotationY, 0f, 1f, 0f);
+            GL11.glRotatef((float)rotationZ, 0f, 0f, 1f);
             
-            GL11.glScaled(size, size, size);
+            GL11.glScalef((float)size, (float)size, (float)size);
             
             GL11.glEnable(GL12.GL_RESCALE_NORMAL);
             float f6;
@@ -518,9 +518,9 @@ public class RenderHelper3D {
 					points[index].xCoord /= 2;
 					points[index].yCoord /= 2;
 					points[index].zCoord /= 2;
-					double rotation = Math.random()*360;
+					double rotation = (new org.bogdang.modifications.random.XSTR()).nextFloat()*360;
 					double length = maxDifference/(Math.pow(i, 2));
-					Vec3 sideVec = Vec3.createVectorHelper(Math.random()*length-length/2, Math.random()*length-length/2, Math.random()*length-length/2);
+					Vec3 sideVec = Vec3.createVectorHelper((new org.bogdang.modifications.random.XSTR()).nextFloat()*length-length/2, (new org.bogdang.modifications.random.XSTR()).nextFloat()*length-length/2, (new org.bogdang.modifications.random.XSTR()).nextFloat()*length-length/2);
 					points[index] = points[index].addVector(sideVec.xCoord, sideVec.yCoord, sideVec.zCoord);
 				}
 			}
@@ -530,9 +530,9 @@ public class RenderHelper3D {
         GL11.glDisable(GL11.GL_LIGHTING);
         
 		GL11.glPushMatrix();
-		GL11.glTranslated(x, y, z);
+		GL11.glTranslatef((float)x, (float)y, (float)z);
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		GL11.glColor4d(0.6, 0.6, 1, 0.8);
+		GL11.glColor4f(0.6f, 0.6f, 1f, 0.8f);
 		for (int i = 1; i < points.length; i++) {
 			Vec3 vec = points[i];
 			Vec3 vec2 = points[i-1];
@@ -543,10 +543,10 @@ public class RenderHelper3D {
 			nvec.yCoord *= thickness;
 			nvec.zCoord *= thickness;
 			GL11.glBegin(GL11.GL_POLYGON);
-			GL11.glVertex3d(vec.xCoord+nvec.xCoord, vec.yCoord+nvec.yCoord, vec.zCoord+nvec.zCoord);
-			GL11.glVertex3d(vec.xCoord-nvec.xCoord, vec.yCoord-nvec.yCoord, vec.zCoord-nvec.zCoord);
-			GL11.glVertex3d(vec2.xCoord-nvec.xCoord, vec2.yCoord-nvec.yCoord, vec2.zCoord-nvec.zCoord);
-			GL11.glVertex3d(vec2.xCoord+nvec.xCoord, vec2.yCoord+nvec.yCoord, vec2.zCoord+nvec.zCoord);
+			GL11.glVertex3f((float)vec.xCoord+(float)nvec.xCoord, (float)vec.yCoord+(float)nvec.yCoord, (float)vec.zCoord+(float)nvec.zCoord);
+			GL11.glVertex3f((float)vec.xCoord-(float)nvec.xCoord, (float)vec.yCoord-(float)nvec.yCoord, (float)vec.zCoord-(float)nvec.zCoord);
+			GL11.glVertex3f((float)vec2.xCoord-(float)nvec.xCoord, (float)vec2.yCoord-(float)nvec.yCoord, (float)vec2.zCoord-(float)nvec.zCoord);
+			GL11.glVertex3f((float)vec2.xCoord+(float)nvec.xCoord, (float)vec2.yCoord+(float)nvec.yCoord, (float)vec2.zCoord+(float)nvec.zCoord);
 			GL11.glEnd();
 		}
 		GL11.glPopMatrix();
